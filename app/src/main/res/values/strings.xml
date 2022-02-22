@@ -2,4 +2,5 @@
     <string name="app_name">MarvelSuperHeroes</string>
     <string name="marvel_logo">marvel_logo</string>
     <string name="superhero_image_content_description">superhero_image</string>
+    <string name="Nodescription">No description available</string>
 </resources>

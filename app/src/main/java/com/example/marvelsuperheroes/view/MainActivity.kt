@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
@@ -19,9 +18,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.recyclerPokemon.layoutManager = GridLayoutManager(this,2)
-        viewModel.superheroList.observe(this,{
+        binding.recyclerPokemon.layoutManager = GridLayoutManager(this, 2)
+        viewModel.superheroList.observe(this, {
             binding.recyclerPokemon.adapter = SuperheroAdapter(it)
         })
 
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAllSuperHeroes() {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             viewModel.getAllSuperheroes()
         }
     }

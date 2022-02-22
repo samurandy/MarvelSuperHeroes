@@ -7,11 +7,11 @@ import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.data.network.SuperheroService
 import kotlinx.coroutines.launch
 
-class SuperheroViewModel: ViewModel() {
+class SuperheroViewModel : ViewModel() {
     private val service = SuperheroService()
     val superheroList = MutableLiveData<List<Superhero>>()
 
-    suspend fun getAllSuperheroes(){
+    suspend fun getAllSuperheroes() {
         viewModelScope.launch {
             val result = service.getAllSuperheroes()
 
@@ -20,5 +20,4 @@ class SuperheroViewModel: ViewModel() {
             }
         }
     }
-
 }
