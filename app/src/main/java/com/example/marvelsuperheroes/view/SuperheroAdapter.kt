@@ -27,7 +27,7 @@ class SuperheroAdapter(private var superheroList: List<Superhero>) :
             with(superheroList[position]) {
                 binding.name.text = name.replaceFirstChar { it.uppercase() }
                 holder.binding.marvelImageMain.glide(
-                    "${thumbnail.path}${Constants.IMAGE_SIZE}${Constants.DOT}${thumbnail.extension}"
+                    "${thumbnail.path}${Constants.IMAGE_LARGE_SIZE}${Constants.DOT}${thumbnail.extension}"
                 )
             }
         }
@@ -45,5 +45,5 @@ class SuperheroAdapter(private var superheroList: List<Superhero>) :
 }
 
 fun ImageView.glide(url: String) {
-    Glide.with(this).load(url).into(this)
+    Glide.with(this).load(url).centerCrop().into(this)
 }

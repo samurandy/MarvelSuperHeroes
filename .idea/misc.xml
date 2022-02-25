@@ -5,10 +5,14 @@
       <map>
         <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/drawable/color_bg.xml" value="0.2703125" />
         <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/drawable/layout_bg.xml" value="0.2703125" />
+        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/drawable/shadow.xml" value="0.2703125" />
         <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/font/roboto.xml" value="0.284375" />
-        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/layout/activity_detail.xml" value="0.264" />
-        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/font/roboto_medium.xml" value="0.16875" />
+        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/layout/activity_detail.xml" value="0.21825396825396826" />
+        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/layout/content_scrolling.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/layout/item_card.xml" value="0.2" />
+        <entry key="..\:/Users/CHV/AndroidStudioProjects/MarvelSuperHeroes/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

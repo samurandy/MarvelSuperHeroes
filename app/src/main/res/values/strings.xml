@@ -3,4 +3,6 @@
     <string name="marvel_logo">marvel_logo</string>
     <string name="superhero_image_content_description">superhero_image</string>
     <string name="Nodescription">No description available</string>
+    <string name="action_filtered">With images</string>
+    <string name="action_non_filtered">All</string>
 </resources>
