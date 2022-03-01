@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="violet">#AF0081</color>
     <color name="crimson">#e32525</color>
+    <color name="darkslateblue">#2e3192</color>
 
 </resources>

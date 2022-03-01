@@ -1,26 +1,23 @@
 package com.example.marvelsuperheroes.view
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.marvelsuperheroes.data.model.Superhero
-import com.example.marvelsuperheroes.data.network.SuperheroService
-import kotlinx.coroutines.launch
+import com.example.marvelsuperheroes.domain.GetAllSuperheroesUseCase
+import com.example.marvelsuperheroes.domain.GetSuperheroUseCase
 
 class SuperheroViewModel : ViewModel() {
-    private val service = SuperheroService()
+    private val getAllSuperheroesUseCase = GetAllSuperheroesUseCase()
+    private val getSuperheroUseCase = GetSuperheroUseCase()
     val superheroList = MutableLiveData<List<Superhero>>()
     var isLoading = MutableLiveData<Boolean>()
-    var result: List<Superhero> = emptyList()
+    private var result: List<Superhero> = emptyList()
 
     suspend fun initView() {
-        viewModelScope.launch {
-            isLoading.postValue(true)
-            result = service.getAllSuperheroes()
-            superheroList.postValue(result)
-            isLoading.postValue(false)
-        }
+        isLoading.postValue(true)
+        result = getAllSuperheroesUseCase.getAllSuperHeroes()
+        superheroList.postValue(result)
+        isLoading.postValue(false)
     }
 
     fun getAllSuperheroes() {
@@ -31,5 +28,12 @@ class SuperheroViewModel : ViewModel() {
         if (!result.isNullOrEmpty()) superheroList.postValue(
             result.filterNot { it.thumbnail.path.contains("image_not_available") }
         )
+    }
+
+    suspend fun getSuperheroByNameCoincidence(name: String) {
+        isLoading.postValue(true)
+        val superheroListWithNameCoincidence = getSuperheroUseCase.getSuperheroesByName(name)
+        superheroList.postValue(superheroListWithNameCoincidence)
+        isLoading.postValue(false)
     }
 }

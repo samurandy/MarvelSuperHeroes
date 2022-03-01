@@ -3,12 +3,12 @@ package com.example.marvelsuperheroes.view
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.databinding.ItemCardBinding
-import com.example.marvelsuperheroes.utils.Constants
+import com.example.marvelsuperheroes.utils.Constants.Companion.DOT
+import com.example.marvelsuperheroes.utils.Constants.Companion.IMAGE_LARGE_SIZE
+import com.example.marvelsuperheroes.utils.glide
 
 class SuperheroAdapter(private var superheroList: List<Superhero>) :
     RecyclerView.Adapter<SuperheroAdapter.ViewHolder>() {
@@ -27,7 +27,7 @@ class SuperheroAdapter(private var superheroList: List<Superhero>) :
             with(superheroList[position]) {
                 binding.name.text = name.replaceFirstChar { it.uppercase() }
                 holder.binding.marvelImageMain.glide(
-                    "${thumbnail.path}${Constants.IMAGE_LARGE_SIZE}${Constants.DOT}${thumbnail.extension}"
+                    "${thumbnail.path}${IMAGE_LARGE_SIZE}${DOT}${thumbnail.extension}"
                 )
             }
         }
@@ -42,8 +42,4 @@ class SuperheroAdapter(private var superheroList: List<Superhero>) :
     override fun getItemCount(): Int {
         return superheroList.size
     }
-}
-
-fun ImageView.glide(url: String) {
-    Glide.with(this).load(url).centerCrop().into(this)
 }

@@ -1,10 +1,9 @@
 package com.example.marvelsuperheroes.data.network
 
-import android.util.Log
-import com.example.marvelsuperheroes.data.model.SuperheroResponse
 import com.example.marvelsuperheroes.data.model.Superhero
-import kotlinx.coroutines.Dispatchers
+import com.example.marvelsuperheroes.data.model.SuperheroResponse
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
 
 class SuperheroService {
@@ -18,12 +17,14 @@ class SuperheroService {
         }
     }
 
-    /*suspend fun getSuperhero(id: Int): Superhero {
+    suspend fun getSuperheroesByName(
+        name: String
+    ): List<Superhero> {
         return withContext(Dispatchers.IO) {
-            val response: Response<Superhero> =
-                retrofit.create(SuperheroApiClient::class.java).getSuperhero(id)
-            response.body() ?: Superhero("", "", )
+            val response: Response<SuperheroResponse> =
+                retrofit.create(SuperheroApiClient::class.java)
+                    .getSuperheroesByName(search = name)
+            response.body()?.data?.results ?: emptyList()
         }
-    }*/
+    }
 }
-

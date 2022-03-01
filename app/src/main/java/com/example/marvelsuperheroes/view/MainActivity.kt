@@ -1,22 +1,26 @@
 package com.example.marvelsuperheroes.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.marvelsuperheroes.R
 import com.example.marvelsuperheroes.databinding.ActivityMainBinding
-import kotlinx.coroutines.delay
+import com.example.marvelsuperheroes.utils.toast
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: SuperheroViewModel by viewModels()
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this, {
             binding.progressBar.isVisible = it
         })
-
         lifecycleScope.launch {
             viewModel.initView()
         }
@@ -41,7 +44,38 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        return true
+        val searchItem: MenuItem? = menu.findItem(R.id.action_search)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = searchItem?.actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty())
+                    lifecycleScope.launch {
+                        viewModel.getSuperheroByNameCoincidence(query)
+                    }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                binding.marvelLogo.visibility = View.INVISIBLE
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                binding.marvelLogo.visibility = View.VISIBLE
+                return true
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,22 +84,29 @@ class MainActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     viewModel.getAllSuperheroes()
                 }
-                Toast.makeText(applicationContext, "Showing all superheroes", Toast.LENGTH_LONG)
-                    .show()
+                toast("Showing all superheroes")
                 true
             }
             R.id.action_filtered -> {
                 lifecycleScope.launch {
                     viewModel.getSuperHeroesWithImage()
                 }
-                Toast.makeText(
-                    applicationContext,
-                    "Showing only superheroes with images",
-                    Toast.LENGTH_LONG
-                ).show()
+                toast("Showing only superheroes with images")
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            R.id.action_search -> {
+                true
+            }
+            else -> true
+        }
+    }
+
+    override fun onBackPressed() {
+        if (!searchView.isIconified) {
+            searchView.onActionViewCollapsed()
+            binding.marvelLogo.visibility = View.VISIBLE
+        } else {
+            super.onBackPressed()
         }
     }
 }

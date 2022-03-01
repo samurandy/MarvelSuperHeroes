@@ -2,14 +2,14 @@ package com.example.marvelsuperheroes.view
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
 import com.example.marvelsuperheroes.R
 import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.databinding.ActivityDetailBinding
-import com.example.marvelsuperheroes.utils.Constants
+import com.example.marvelsuperheroes.utils.Constants.Companion.DOT
+import com.example.marvelsuperheroes.utils.Constants.Companion.IMAGE_XLARGE_SIZE
+import com.example.marvelsuperheroes.utils.glide
 import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
@@ -34,16 +34,11 @@ class DetailActivity : AppCompatActivity() {
 
                 if (it?.description != "") descriptionDetail.text = it?.description
                 else descriptionDetail.text = getString(R.string.Nodescription)
-                Log.d("***superheroUrl","${it?.thumbnail?.path}")
+                Log.d("***superheroUrl", "${it?.thumbnail?.path}")
                 lifecycleScope.launch {
-                    imageDetail.glide("${it?.thumbnail?.path}${Constants.IMAGE_XLARGE_SIZE}.${it?.thumbnail?.extension}")
+                    imageDetail.glide("${it?.thumbnail?.path}${IMAGE_XLARGE_SIZE}${DOT}${it?.thumbnail?.extension}")
                 }
             }
         }
     }
-
-    fun ImageView.glide(url: String) {
-        Glide.with(this).load(url).fitCenter().into(this)
-    }
 }
-
