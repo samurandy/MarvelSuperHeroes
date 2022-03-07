@@ -3,6 +3,7 @@ package com.example.marvelsuperheroes.view
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.marvelsuperheroes.R
 import com.example.marvelsuperheroes.databinding.ActivityMainBinding
+import com.example.marvelsuperheroes.utils.ConnectivityLiveData
+import com.example.marvelsuperheroes.utils.hideKeyboard
 import com.example.marvelsuperheroes.utils.toast
 import kotlinx.coroutines.launch
 
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: SuperheroViewModel by viewModels()
     private lateinit var searchView: SearchView
+    private lateinit var checkConnection: ConnectivityLiveData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,18 +32,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        checkConnection = ConnectivityLiveData(application)
+        Log.d("***checkConnection1", checkConnection.value.toString())
+
         binding.recycler.layoutManager = GridLayoutManager(this, 2)
 
-        viewModel.superheroList.observe(this, {
+        viewModel.superheroListLiveData.observe(this, {
             binding.recycler.adapter = SuperheroAdapter(it)
         })
 
         viewModel.isLoading.observe(this, {
             binding.progressBar.isVisible = it
         })
-        lifecycleScope.launch {
-            viewModel.initView()
-        }
+
+        checkConnection.observe(this, { isConnected ->
+            when (isConnected) {
+                true -> if (viewModel.superheroListLiveData.value.isNullOrEmpty())
+                    lifecycleScope.launch { viewModel.initView() }
+
+                false -> toast("Network not available")
+            }
+        })
+
+        viewModel.error.observe(this, {
+            toast(it)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,7 +70,9 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty())
                     lifecycleScope.launch {
-                        viewModel.getSuperheroByNameCoincidence(query)
+                        searchItem.collapseActionView()
+                        if (checkConnection.value == true ) viewModel.getSuperheroByNameCoincidence(query)
+                        else toast("Network not available")
                     }
                 return false
             }
@@ -84,19 +103,16 @@ class MainActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     viewModel.getAllSuperheroes()
                 }
-                toast("Showing all superheroes")
                 true
             }
             R.id.action_filtered -> {
                 lifecycleScope.launch {
                     viewModel.getSuperHeroesWithImage()
                 }
-                toast("Showing only superheroes with images")
                 true
             }
-            R.id.action_search -> {
-                true
-            }
+            R.id.action_search -> true
+
             else -> true
         }
     }

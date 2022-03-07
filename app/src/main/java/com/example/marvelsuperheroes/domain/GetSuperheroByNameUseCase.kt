@@ -2,11 +2,12 @@ package com.example.marvelsuperheroes.domain
 
 import com.example.marvelsuperheroes.data.SuperheroRepository
 import com.example.marvelsuperheroes.data.model.Superhero
+import com.example.marvelsuperheroes.utils.Resource
 
-class GetSuperheroUseCase {
+class GetSuperheroByNameUseCase {
     private val repository = SuperheroRepository()
 
-    suspend fun getSuperheroesByName(name: String): List<Superhero> {
+    suspend fun getSuperheroesByName(name: String): Resource<List<Superhero>> {
         return repository.getSuperheroesByName(name)
     }
 }

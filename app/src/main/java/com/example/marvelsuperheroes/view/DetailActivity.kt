@@ -9,7 +9,7 @@ import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.databinding.ActivityDetailBinding
 import com.example.marvelsuperheroes.utils.Constants.Companion.DOT
 import com.example.marvelsuperheroes.utils.Constants.Companion.IMAGE_XLARGE_SIZE
-import com.example.marvelsuperheroes.utils.glide
+import com.example.marvelsuperheroes.utils.loadUrl
 import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
@@ -33,12 +33,20 @@ class DetailActivity : AppCompatActivity() {
                 nameDetail.text = it?.name
 
                 if (it?.description != "") descriptionDetail.text = it?.description
-                else descriptionDetail.text = getString(R.string.Nodescription)
-                Log.d("***superheroUrl", "${it?.thumbnail?.path}")
+                else descriptionDetail.text = getString(R.string.no_description)
+
                 lifecycleScope.launch {
-                    imageDetail.glide("${it?.thumbnail?.path}${IMAGE_XLARGE_SIZE}${DOT}${it?.thumbnail?.extension}")
+                    imageDetail.loadUrl("${it?.thumbnail?.path}${IMAGE_XLARGE_SIZE}${DOT}${it?.thumbnail?.extension}")
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 }

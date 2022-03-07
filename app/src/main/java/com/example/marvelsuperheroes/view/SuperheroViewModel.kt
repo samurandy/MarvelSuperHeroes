@@ -4,36 +4,44 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.domain.GetAllSuperheroesUseCase
-import com.example.marvelsuperheroes.domain.GetSuperheroUseCase
+import com.example.marvelsuperheroes.domain.GetSuperheroByNameUseCase
+import com.example.marvelsuperheroes.utils.Resource
 
-class SuperheroViewModel : ViewModel() {
+class SuperheroViewModel() : ViewModel() {
     private val getAllSuperheroesUseCase = GetAllSuperheroesUseCase()
-    private val getSuperheroUseCase = GetSuperheroUseCase()
-    val superheroList = MutableLiveData<List<Superhero>>()
+    private val getSuperheroUseCase = GetSuperheroByNameUseCase()
+    val superheroListLiveData = MutableLiveData<List<Superhero>>()
     var isLoading = MutableLiveData<Boolean>()
-    private var result: List<Superhero> = emptyList()
+    private var superheroList: List<Superhero> = emptyList()
+    val error = MutableLiveData<String>()
 
     suspend fun initView() {
         isLoading.postValue(true)
-        result = getAllSuperheroesUseCase.getAllSuperHeroes()
-        superheroList.postValue(result)
+        when (val result = getAllSuperheroesUseCase.getAllSuperHeroes()) {
+            is Resource.Success -> {
+                result.data?.let { superheroList = it }
+                superheroListLiveData.postValue(result.data)}
+            is Resource.Error -> error.postValue(result.message)
+        }
         isLoading.postValue(false)
     }
 
     fun getAllSuperheroes() {
-        if (!result.isNullOrEmpty()) superheroList.postValue(result)
+        if (!superheroList.isNullOrEmpty()) superheroListLiveData.postValue(superheroList)
     }
 
     fun getSuperHeroesWithImage() {
-        if (!result.isNullOrEmpty()) superheroList.postValue(
-            result.filterNot { it.thumbnail.path.contains("image_not_available") }
+        if (!superheroList.isNullOrEmpty()) superheroListLiveData.postValue(
+            superheroList.filterNot { it.thumbnail.path.contains("image_not_available") }
         )
     }
 
     suspend fun getSuperheroByNameCoincidence(name: String) {
         isLoading.postValue(true)
-        val superheroListWithNameCoincidence = getSuperheroUseCase.getSuperheroesByName(name)
-        superheroList.postValue(superheroListWithNameCoincidence)
+        when (val result = getSuperheroUseCase.getSuperheroesByName(name)) {
+            is Resource.Success -> superheroListLiveData.postValue(result.data)
+            is Resource.Error -> error.postValue(result.message)
+        }
         isLoading.postValue(false)
     }
 }

@@ -8,7 +8,9 @@ import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.databinding.ItemCardBinding
 import com.example.marvelsuperheroes.utils.Constants.Companion.DOT
 import com.example.marvelsuperheroes.utils.Constants.Companion.IMAGE_LARGE_SIZE
-import com.example.marvelsuperheroes.utils.glide
+import com.example.marvelsuperheroes.utils.loadUrl
+import android.R
+import android.app.Activity
 
 class SuperheroAdapter(private var superheroList: List<Superhero>) :
     RecyclerView.Adapter<SuperheroAdapter.ViewHolder>() {
@@ -26,16 +28,22 @@ class SuperheroAdapter(private var superheroList: List<Superhero>) :
         with(holder) {
             with(superheroList[position]) {
                 binding.name.text = name.replaceFirstChar { it.uppercase() }
-                holder.binding.marvelImageMain.glide(
+                holder.binding.marvelImageMain.loadUrl(
                     "${thumbnail.path}${IMAGE_LARGE_SIZE}${DOT}${thumbnail.extension}"
                 )
             }
         }
         // ClickListener in recycler from Main to Detail
-        holder.binding.itemCard.setOnClickListener { v ->
-            val intent = Intent(v.context, DetailActivity::class.java)
+        holder.binding.itemCard.setOnClickListener { view ->
+            val intent = Intent(view.context, DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_ID, superheroList[position])
-            v.context.startActivity(intent)
+            /*val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                view.context as Activity, view, view.context.getString(R.string.))*/
+            view.context.startActivity(intent)
+            (view.context as Activity).overridePendingTransition(
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+            )
         }
     }
 

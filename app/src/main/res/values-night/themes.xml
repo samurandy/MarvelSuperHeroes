@@ -16,4 +16,14 @@
     <style name="SearchViewStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:editTextColor">@color/white</item>
     </style>
+    <style name="Theme.MarvelSuperHeroes.Main">
+        <item name="android:windowExitTransition">@transition/main_exit</item>
+        <item name="android:windowReenterTransition">@transition/main_reenter</item>
+    </style>
+
+    <style name="Theme.MarvelSuperHeroes.Detail">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowEnterTransition">@transition/detail_enter</item>
+    </style>
 </resources>

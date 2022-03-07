@@ -2,7 +2,8 @@
     <string name="app_name">MarvelSuperHeroes</string>
     <string name="marvel_logo">marvel_logo</string>
     <string name="superhero_image_content_description">superhero_image</string>
-    <string name="Nodescription">No description available</string>
-    <string name="action_filtered">With images</string>
-    <string name="action_non_filtered">All</string>
+    <string name="no_description">No description available</string>
+    <string name="action_filtered">Only with images</string>
+    <string name="action_non_filtered">All superheroes</string>
+    <string name="picture_transition_name">picture_transition</string>
 </resources>
