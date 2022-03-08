@@ -8,6 +8,10 @@ MarvelSuperHeroes is an application based on modern Android application tech-sta
 
 ![Presentación1](https://user-images.githubusercontent.com/21971474/157326371-2e3148b2-0057-4baa-aa19-93aeb6f52564.png)
 
+## Functionality
+- Move around default 100 superheroes where is possible to filter them by only with image.
+- Search your favourite superhero from all database.
+- Navigate to superheroes detail in both cases above.
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
@@ -23,6 +27,11 @@ MarvelSuperHeroes is an application based on modern Android application tech-sta
 - [Glide](https://github.com/bumptech/glide) - loading images.
 - [MotionEditor](https://developer.android.com/studio/write/motion-editor?hl=es-419) - implementing transformation motion animations.
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components like ripple animation, cardView.
+
+## Unit Testing Frameworks
+Unit Tests verify the interactions of viewmodels between repositories and REST api requests.
+- [JUnit4](https://github.com/junit-team/junit4) - a simple framework to write repeatable tests.
+- [Mockk](https://github.com/mockk/mockk) - a technique to make testing code readable and maintainable.
 
 ## Architecture
 MarvelHeroes is based on MVVM architecture and a repository pattern.
