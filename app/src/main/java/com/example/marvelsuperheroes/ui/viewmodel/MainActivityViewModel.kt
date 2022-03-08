@@ -1,4 +1,4 @@
-package com.example.marvelsuperheroes.view
+package com.example.marvelsuperheroes.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -6,10 +6,13 @@ import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.domain.GetAllSuperheroesUseCase
 import com.example.marvelsuperheroes.domain.GetSuperheroByNameUseCase
 import com.example.marvelsuperheroes.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SuperheroViewModel() : ViewModel() {
-    private val getAllSuperheroesUseCase = GetAllSuperheroesUseCase()
-    private val getSuperheroUseCase = GetSuperheroByNameUseCase()
+@HiltViewModel
+class MainActivityViewModel @Inject constructor(
+    private val getAllSuperheroesUseCase : GetAllSuperheroesUseCase,
+    private val getSuperheroUseCase : GetSuperheroByNameUseCase): ViewModel() {
     val superheroListLiveData = MutableLiveData<List<Superhero>>()
     var isLoading = MutableLiveData<Boolean>()
     private var superheroList: List<Superhero> = emptyList()

@@ -1,4 +1,4 @@
-package com.example.marvelsuperheroes.view
+package com.example.marvelsuperheroes.ui.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import com.example.marvelsuperheroes.databinding.ActivitySplashScreenBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class TitleScreen : AppCompatActivity() {
+class TitleScreenActivity : AppCompatActivity() {
     companion object {
         const val DELAY_TIME: Long = 2000
     }
@@ -25,7 +25,7 @@ class TitleScreen : AppCompatActivity() {
     private fun goToMainActivity() {
         lifecycleScope.launch {
             delay(DELAY_TIME)
-            val intent = Intent(this@TitleScreen, MainActivity::class.java)
+            val intent = Intent(this@TitleScreenActivity, MainActivity::class.java)
             startActivity(intent)
         }
     }

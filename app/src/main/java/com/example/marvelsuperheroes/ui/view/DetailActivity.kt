@@ -1,7 +1,6 @@
-package com.example.marvelsuperheroes.view
+package com.example.marvelsuperheroes.ui.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.marvelsuperheroes.R
@@ -10,8 +9,10 @@ import com.example.marvelsuperheroes.databinding.ActivityDetailBinding
 import com.example.marvelsuperheroes.utils.Constants.Companion.DOT
 import com.example.marvelsuperheroes.utils.Constants.Companion.IMAGE_XLARGE_SIZE
 import com.example.marvelsuperheroes.utils.loadUrl
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
 

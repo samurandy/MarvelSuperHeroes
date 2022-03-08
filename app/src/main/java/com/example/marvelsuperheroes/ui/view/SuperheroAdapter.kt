@@ -1,4 +1,4 @@
-package com.example.marvelsuperheroes.view
+package com.example.marvelsuperheroes.ui.view
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.databinding.ItemCardBinding
 import com.example.marvelsuperheroes.utils.Constants.Companion.DOT
 import com.example.marvelsuperheroes.utils.Constants.Companion.IMAGE_LARGE_SIZE
-import com.example.marvelsuperheroes.utils.loadUrl
 import android.R
 import android.app.Activity
+import com.example.marvelsuperheroes.utils.loadUrl
 
 class SuperheroAdapter(private var superheroList: List<Superhero>) :
     RecyclerView.Adapter<SuperheroAdapter.ViewHolder>() {

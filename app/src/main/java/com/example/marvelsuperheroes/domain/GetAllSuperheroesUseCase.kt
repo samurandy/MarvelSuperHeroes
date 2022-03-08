@@ -5,9 +5,9 @@ import android.content.Context
 import com.example.marvelsuperheroes.data.SuperheroRepository
 import com.example.marvelsuperheroes.data.model.Superhero
 import com.example.marvelsuperheroes.utils.Resource
+import javax.inject.Inject
 
-class GetAllSuperheroesUseCase {
-    private val repository = SuperheroRepository()
+class GetAllSuperheroesUseCase @Inject constructor(private val repository : SuperheroRepository) {
 
     suspend fun getAllSuperHeroes(): Resource<List<Superhero>> {
         return repository.getAllSuperHeroes()

@@ -6,16 +6,15 @@ import com.example.marvelsuperheroes.utils.Resource
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
+import javax.inject.Inject
 
-class SuperheroService {
-    private val retrofit = RetrofitHelper.getRetrofit()
+class SuperheroService @Inject constructor(private val api: SuperheroApiClient) {
 
     suspend fun getAllSuperheroes(): Resource<List<Superhero>> {
         return withContext(Dispatchers.IO) {
             try {
-                val response: Response<SuperheroResponse> =
-                    retrofit.create(SuperheroApiClient::class.java).getAllSuperheroes()
-                Resource.Success(response.body()?.data?.results  ?: emptyList())
+                val response: Response<SuperheroResponse> = api.getAllSuperheroes()
+                Resource.Success(response.body()?.data?.results ?: emptyList())
             } catch (e: Exception) {
 
                 Resource.Error("There was a problem in the server")
@@ -29,8 +28,7 @@ class SuperheroService {
         return withContext(Dispatchers.IO) {
             try {
                 val response: Response<SuperheroResponse> =
-                    retrofit.create(SuperheroApiClient::class.java)
-                        .getSuperheroesByName(search = name)
+                    api.getSuperheroesByName(search = name)
                 Resource.Success(response.body()?.data?.results ?: emptyList())
             } catch (e: Exception) {
                 Resource.Error("There was a problem in the server")

@@ -1,4 +1,4 @@
-package com.example.marvelsuperheroes.view
+package com.example.marvelsuperheroes.ui.view
 
 import android.app.SearchManager
 import android.content.Context
@@ -15,14 +15,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.marvelsuperheroes.R
 import com.example.marvelsuperheroes.databinding.ActivityMainBinding
+import com.example.marvelsuperheroes.ui.viewmodel.MainActivityViewModel
 import com.example.marvelsuperheroes.utils.ConnectivityLiveData
-import com.example.marvelsuperheroes.utils.hideKeyboard
 import com.example.marvelsuperheroes.utils.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: SuperheroViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
     private lateinit var searchView: SearchView
     private lateinit var checkConnection: ConnectivityLiveData
 
