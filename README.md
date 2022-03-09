@@ -26,7 +26,7 @@ MarvelSuperHeroes is an application based on modern Android application tech-sta
 - [Retrofit2 & Gson](https://github.com/square/retrofit) - construct the REST APIs.
 - [Glide](https://github.com/bumptech/glide) - loading images.
 - [MotionEditor](https://developer.android.com/studio/write/motion-editor?hl=es-419) - implementing transformation motion animations.
-- [Material-Components](https://github.com/material-components/material-components-android) - Material design components like ripple animation, cardView.
+- [Material-Components](https://github.com/material-components/material-components-android) - Material design components like cardView, animation, menu.
 
 ## Unit Testing Frameworks
 Unit Tests verify the interactions of viewmodels between repositories and REST api requests.
@@ -36,13 +36,13 @@ Unit Tests verify the interactions of viewmodels between repositories and REST a
 ## Architecture
 MarvelHeroes is based on MVVM architecture and a repository pattern.
 
-![architecture](https://user-images.githubusercontent.com/21971474/157321132-fd1e56de-508d-453f-81e8-af605185943a.png)
+<img src="https://user-images.githubusercontent.com/21971474/157321132-fd1e56de-508d-453f-81e8-af605185943a.png" />
 
-<img src="https://user-images.githubusercontent.com/24237865/141415477-d1af2b48-2498-4ff0-8fdf-95dff092e317.png" align="right" width="22%"/>
+<img src="https://user-images.githubusercontent.com/21971474/157424462-1f8aeeef-f9d2-4ffe-8949-554e1d6a7e9b.png" align="right" width="15%"/>
 
 ## Content Credits
-All copyrights of the contents, concepts, and phrases that are used in this open-source project belong to [Marvel Studios](https://www.marvel.com/).
+All copyrights of the contents, concepts, and phrases that are used in this open-source project belong to [Marvel](https://www.marvel.com/).
 
 # License
 ```xml
-Designed and developed by 2022 samurandy (Andrés Carrasco)
+Designed and developed by samurandy (Andrés Carrasco) 2022
